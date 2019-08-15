@@ -3,6 +3,9 @@ Minimal docker image, with AWS CLI installed.
 
 Can be used to run commands from a CI environment against AWS.  
 
+Will become obsolete as soon as there is an official AWS image: 
+https://github.com/aws/aws-cli/issues/3553
+
 ## AWS configuration
 You can either set the environment variables, or mount a credentials and a 
 config file into the container.
