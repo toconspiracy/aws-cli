@@ -15,14 +15,16 @@ RUN pip install \
 
 FROM base
 
-WORKDIR /usr/src/app
+RUN apk add groff \
+    && adduser -h /home/aws -s /bin/sh aws --disabled-password --gecos ""
 
-COPY --from=builder /root/.local /root/.local
+COPY --from=builder /root/.local /home/aws/.local
 
-COPY . .
+RUN chown -R aws:aws /home/aws/.local
 
-RUN apk add groff
+USER aws
 
-ENV PATH=/root/.local/bin:$PATH
+WORKDIR /home/aws
+ENV PATH=/home/aws/.local/bin:$PATH
 ENTRYPOINT [ "aws" ]
 CMD ["--version"]
