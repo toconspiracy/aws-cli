@@ -20,11 +20,14 @@ RUN apk add groff \
 
 COPY --from=builder /root/.local /home/aws/.local
 
-RUN chown -R aws:aws /home/aws/.local
+RUN chown -R aws:0 /home/aws/.local \
+    && chmod -R u+x /home/aws/.local \
+    && chmod -R g=u /home/aws/.local
 
 USER aws
 
 WORKDIR /home/aws
 ENV PATH=/home/aws/.local/bin:$PATH
+ENV HOME=/home/aws
 ENTRYPOINT [ "aws" ]
 CMD ["--version"]
