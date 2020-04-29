@@ -15,7 +15,7 @@ RUN pip install \
 
 FROM base
 
-RUN apk add groff \
+RUN apk add groff bash \
     && adduser -h /home/aws -s /bin/sh aws --disabled-password --gecos ""
 
 COPY --from=builder /root/.local /home/aws/.local
